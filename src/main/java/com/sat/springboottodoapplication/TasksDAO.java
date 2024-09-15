@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface TasksDAO extends JpaRepository<Task, Long> {
-
 }
