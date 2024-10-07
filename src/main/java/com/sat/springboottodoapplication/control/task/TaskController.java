@@ -1,6 +1,7 @@
-package com.sat.springboottodoapplication;
+package com.sat.springboottodoapplication.control.task;
 
-import com.sat.springboottodoapplication.model.Task;
+import com.sat.springboottodoapplication.service.DTO.TaskDTO;
+import com.sat.springboottodoapplication.service.serviceInterface.ITaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Validated
-@RequestMapping(path = "task/v1")
+@RequestMapping(path = "/task/v1")
 public class TaskController {
 
     @Autowired
-    private final TaskService taskService;
+    private ITaskService itaskService;
 
     /**
      * This method is called when a GET request is made
@@ -25,8 +26,8 @@ public class TaskController {
      * @return List of tasks
      */
     @GetMapping("/")
-    public ResponseEntity<List<Task>> getAllTasks(){
-        return ResponseEntity.ok().body(taskService.getAllTasks());
+    public ResponseEntity<List<TaskDTO>> getAllTasks(){
+        return ResponseEntity.ok().body(itaskService.getAllTasks());
     }
 
     /**
@@ -37,9 +38,22 @@ public class TaskController {
      * @return task with the given id
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable Long id)
+    public ResponseEntity<TaskDTO> getTaskById(@PathVariable Long id)
     {
-        return ResponseEntity.ok().body(taskService.getTaskById(id));
+        return ResponseEntity.ok().body(itaskService.getTaskById(id));
+    }
+
+    /**
+     * This method is called when a GET request is made
+     * URL: localhost:8080/tasks/v1/work (or any other category)
+     * Purpose: Fetches tasks with the given category
+     * @param category - tasks category
+     * @return List of tasks with the given category
+     */
+    @GetMapping("/Cat/{category}")
+    public ResponseEntity<List<TaskDTO>> getTasksByCategory(@PathVariable String category)
+    {
+        return ResponseEntity.ok().body(itaskService.getTasksByCategory(category));
     }
 
     /**
@@ -49,10 +63,10 @@ public class TaskController {
      * @param task - Request body is a Task entity
      * @return Saved Task entity
      */
-    @PostMapping("/")
-    public ResponseEntity<Task> saveTask(@RequestBody Task task)
+    @PostMapping("")
+    public ResponseEntity<TaskDTO> saveTask(@RequestBody TaskDTO task)
     {
-        return ResponseEntity.ok().body(taskService.saveTask(task));
+        return ResponseEntity.ok().body(itaskService.saveTask(task));
     }
 
     /**
@@ -63,9 +77,9 @@ public class TaskController {
      * @return Updated Task
      */
     @PutMapping("/")
-    public ResponseEntity<Task> updateTask(@RequestBody Task task)
+    public ResponseEntity<TaskDTO> updateTask(@RequestBody TaskDTO task)
     {
-        return ResponseEntity.ok().body(taskService.updateTask(task));
+        return ResponseEntity.ok().body(itaskService.updateTask(task));
     }
 
     /**
@@ -78,7 +92,7 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTaskById(@PathVariable Long id)
     {
-        taskService.deleteTaskById(id);
+        itaskService.deleteTaskById(id);
         return ResponseEntity.ok().body("Deleted task successfully");
     }
 

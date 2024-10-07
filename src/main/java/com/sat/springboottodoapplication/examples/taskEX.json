@@ -1,0 +1,35 @@
+{
+  "title": "task1",
+  "description": "something something something something.",
+  "status": true,
+  "priority": 1,
+  "author": {
+    "id": 1,
+    "name": "ali",
+    "email": "alidsd@gmail.com",
+    "password": "123456789"
+  },
+  "category":{
+    "id": 1,
+    "title": "work",
+    "description": "related to workspace."
+  }
+}
+
+{
+  "title": "task2",
+  "description": "something2 something2 something2 something2.",
+  "status": false,
+  "priority": 2,
+  "author": {
+    "id": 1,
+    "name": "ali",
+    "email": "alidsd@gmail.com",
+    "password": "123456789"
+  },
+  "category":{
+    "id": 1,
+    "title": "work",
+    "description": "related to workspace."
+  }
+}
